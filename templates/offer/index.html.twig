@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Indeep | Toutes nos offres{% endblock %}
+
+{% block body %}
+    {% include "components/_navbar.html.twig" %}
+    <div id="home" class="container">
+        <div class="row my-5 pt-5">
+            <div class="col-md-12 text-center">
+                <h2>Découvrez toutes nos offres !</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-6">
+                {% for offer in offer_list %}  
+                    <a href="{{ path("offers.show",{id: offer.id} )}}">
+                        <div class="card m-2 shadow border-0">
+                            <div class="card-body">
+                                <h3 class="card-title h5">{{ offer.title }}</h3>
+                                <p class="card-subtitle mb-2 text-muted h6">{{ offer.company }}</p>
+                                <p class="card-subtitle mb-2 fst-italic text-muted h6">{{ offer.city }}</p>
+                                <div class="d-flex justify-content-between" >
+                                    <span class="fs-6 fw-light">{{ offer.createdAt | date ("d/m/Y") }}</span>
+                                    {# <span class="fs-6 fw-light">{{ offer.contract.name }} / {{ offer.contractType.name }}</span> #}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+            {# <div class="col-md-6">
+                {% if offers %}
+                    {% include "./offer1.html.twig" %}
+                {% endif %}
+            </div> #}
+        </div>
+    </div>
+{% endblock %}

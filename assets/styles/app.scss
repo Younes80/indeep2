@@ -1,0 +1,51 @@
+@import './variables';
+
+/* ----- General ----- */
+
+* {
+	font-family: $font-2;
+}
+
+h1,
+h2,
+h3,
+h4,
+h4 {
+	color: $color-1;
+}
+
+h2 {
+	font-family: $font-1;
+}
+
+.bg-color-primary {
+	background-color: $color-1 !important;
+	color: $color-4 !important;
+}
+
+.navbar-brand {
+	font-family: $font-4;
+	font-size: 30px !important;
+}
+
+/* ----- Homepage ----- */
+
+#home {
+	a {
+		text-decoration: none;
+		color: $color-3;
+		&:hover {
+			color: $color-3;
+		}
+	}
+	.card {
+		transition: transform 0.5s;
+		border: none;
+		&:hover {
+			transform: scale(0.98);
+			border: 1px solid rgb(218, 218, 218) !important;
+			box-shadow: none !important;
+			z-index: 999 !important;
+		}
+	}
+}

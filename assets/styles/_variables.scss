@@ -1,0 +1,35 @@
+@font-face {
+	font-family: 'font-1';
+	src: url(../fonts/Vidaloka/Vidaloka-Regular.ttf);
+}
+@font-face {
+	font-family: 'font-2';
+	src: url(../fonts/PT_Sans/PTSans-Regular.ttf);
+}
+@font-face {
+	font-family: 'font-3';
+	src: url(../fonts/Roboto/Roboto-Regular.ttf);
+}
+
+@font-face {
+	font-family: 'font-4';
+	src: url(../fonts/Parisienne/Parisienne-Regular.ttf);
+}
+
+$font-1: 'font-1', sans-serif;
+$font-2: 'font-2', sans-serif;
+$font-3: 'font-3', sans-serif;
+$font-4: 'font-4', sans-serif;
+
+$color-1: #0073bd;
+$color-2: #e91e63;
+$color-3: #333;
+$color-4: #fafafa;
+$color-5: rgba(250, 250, 250, 0.8);
+$color-6: #ffeb3b;
+$white: rgb(253, 253, 253);
+$shadow: 0 -1px 2px 0 rgba(60, 64, 67, 0.3),
+	2px 2px 4px 1px rgba(60, 64, 67, 0.15);
+$shadow-full: 0px 0px 2px 1px rgba(51, 51, 51, 0.6),
+	8px 8px 1px 0px rgba(13, 71, 161, 0.6),
+	-10px -10px 1px 5px rgba(255, 235, 59, 0.9);
