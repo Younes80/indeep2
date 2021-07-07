@@ -22,6 +22,7 @@
                                 <div class="d-flex justify-content-between" >
                                     <span class="fs-6 fw-light">{{ offer.createdAt | date ("d/m/Y") }}</span>
                                     {# <span class="fs-6 fw-light">{{ offer.contract.name }} / {{ offer.contractType.name }}</span> #}
+                                    <a href="{{ path("offers.delete", {id: offer.id}) }}">Supprimer l'offre</a>
                                 </div>
                             </div>
                         </div>

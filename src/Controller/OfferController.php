@@ -69,8 +69,21 @@ class OfferController extends AbstractController
         return $this->render('offer/new.offer.html.twig', [
             "form" => $form->createView()
         ]);
+    }
 
+    /**
+     * @route("/offers/delete/{id}", name="offers.delete")
+     */
+    public function delete($id) 
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $offer = $this->getDoctrine()->getRepository(Offer::class);
+        $offer = $offer->find($id);
+        // dd($offer);
+        $manager->remove($offer);
+        $manager->flush();
 
+        return $this->redirectToRoute("offers.list");
     }
 
     /**
