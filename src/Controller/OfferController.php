@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Contract;
+use App\Entity\ContractType;
 use App\Entity\Offer;
 use App\Repository\OfferRepository;
 use DateTime;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -28,58 +31,12 @@ class OfferController extends AbstractController
     }
 
     /**
-     * @route("/offers/add", name="offers.create")
-     */
-    public function create(Request $request) {
-        // dd("create offer");
-        $offer = new Offer();
-        $formBuilder = $this->createFormBuilder($offer);
-        $formBuilder
-                    ->add('title', TextType::class, [
-                        'attr' => ['class' => "form-control mb-3"]
-                    ])
-                    ->add('company', TextType::class, [
-                        'attr' => ['class' => "form-control mb-3"]
-                    ])
-                    ->add('city', TextType::class, [
-                        'attr' => ['class' => "form-control mb-3"]
-                    ])
-                    ->add('description', TextareaType::class,[
-                        'attr' => ['class' => "form-control mb-3"]
-                    ] )
-                    // ->add('contract')
-                    // ->add('contractType')
-                    ->add("submit", SubmitType::class, [
-                        'attr' => ['class' => "btn bg-color-primary"]
-                    ]);
-        $form = $formBuilder->getForm();
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $offer = $form->getData();
-            $offer->setCreatedAt(new DateTime());
-            // dd($offer);
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($offer);
-            $manager->flush();
-
-            return $this->redirectToRoute("offers.list");
-        }
-
-        return $this->render('offer/new.offer.html.twig', [
-            "form" => $form->createView()
-        ]);
-    }
-
-    /**
      * @route("/offers/delete/{id}", name="offers.delete")
      */
-    public function delete($id) 
+    public function delete(Offer $offer) 
     {
-        $manager = $this->getDoctrine()->getManager();
-        $offer = $this->getDoctrine()->getRepository(Offer::class);
-        $offer = $offer->find($id);
         // dd($offer);
+        $manager = $this->getDoctrine()->getManager();
         $manager->remove($offer);
         $manager->flush();
 
@@ -88,12 +45,15 @@ class OfferController extends AbstractController
 
 
      /**
-     * @route("/offers/edit/{id}", name="offers.edit")
+     * @route("/offers/add", name="offers.create")
+     * @route("/offers/{id}/edit/", name="offers.edit")
      */
-    public function update(Request $request, $id) {
-        $offer = $this->getDoctrine()->getRepository(Offer::class);
-        $offer = $offer->find($id);
+    public function update(Request $request, Offer $offer = null) {
+        if(!$offer) {
+            $offer = new Offer();
+        }
         // dd($offer);
+    
         $formBuilder = $this->createFormBuilder($offer);
         $formBuilder
                     ->add('title', TextType::class, [
@@ -108,8 +68,23 @@ class OfferController extends AbstractController
                     ->add('description', TextareaType::class,[
                         'attr' => ['class' => "form-control mb-3"]
                     ] )
-                    // ->add('contract')
-                    // ->add('contractType')
+                    ->add('contract', EntityType::class, [
+                        "class" => Contract::class,
+                        'label' => 'Contract',
+                        'choice_label' => 'name',
+                        'choice_attr' => [ 'attr' => [ 'class' => "d-flex"] ],
+                        'multiple' => false,
+                        'expanded' => true,
+                        'attr' => ['class' => "d-flex justify-content-evenly align-items-center mb-3"]
+                    ] )
+                    ->add('contractType', EntityType::class, [
+                        "class" => ContractType::class,
+                        'label' => 'Contract Type',
+                        'choice_label' => 'name',
+                        'multiple' => false,
+                        'expanded' => true,
+                        'attr' => ['class' => "d-flex justify-content-evenly align-items-center mb-3"]
+                    ] )
                     ->add("submit", SubmitType::class, [
                         'attr' => ['class' => "btn bg-color-primary"]
                     ]);
@@ -119,7 +94,14 @@ class OfferController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager = $this->getDoctrine()->getManager();
             $offer = $form->getData();
-            $offer->setUpdateAt(new DateTime());
+
+            if ($offer->getId()){
+                $offer->setUpdateAt(new DateTime());
+            }
+            if(empty($offer->getId())){
+                $offer->setCreatedAt(new DateTime());
+                $manager->persist($offer);
+            }
             // dd($offer);
             $manager->flush();
 
