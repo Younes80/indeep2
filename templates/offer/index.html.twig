@@ -21,8 +21,13 @@
                                 <p class="card-subtitle mb-2 fst-italic text-muted h6">{{ offer.city }}</p>
                                 <div class="d-flex justify-content-between" >
                                     <span class="fs-6 fw-light">{{ offer.createdAt | date ("d/m/Y") }}</span>
-                                    {# <span class="fs-6 fw-light">{{ offer.contract.name }} / {{ offer.contractType.name }}</span> #}
-                                    <a href="{{ path("offers.delete", {id: offer.id}) }}">Supprimer l'offre</a>
+                                    {% if offer.contract %}
+                                        <p class=" fs-6 fw-light">{{ offer.contract.name }} / {{ offer.contractType.name }}</p>
+                                    {% endif %}
+                                    <div>
+                                        <a href="{{ path("offers.edit", {id: offer.id}) }}" class="btn btn-warning rounded-pill text-light">Modifier l'offre</a>
+                                        <a href="{{ path("offers.delete", {id: offer.id}) }}" class="btn btn-danger rounded-pill text-light">Supprimer l'offre</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

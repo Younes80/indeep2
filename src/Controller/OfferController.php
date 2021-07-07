@@ -86,6 +86,51 @@ class OfferController extends AbstractController
         return $this->redirectToRoute("offers.list");
     }
 
+
+     /**
+     * @route("/offers/edit/{id}", name="offers.edit")
+     */
+    public function update(Request $request, $id) {
+        $offer = $this->getDoctrine()->getRepository(Offer::class);
+        $offer = $offer->find($id);
+        // dd($offer);
+        $formBuilder = $this->createFormBuilder($offer);
+        $formBuilder
+                    ->add('title', TextType::class, [
+                        'attr' => ['class' => "form-control mb-3"]
+                    ])
+                    ->add('company', TextType::class, [
+                        'attr' => ['class' => "form-control mb-3"]
+                    ])
+                    ->add('city', TextType::class, [
+                        'attr' => ['class' => "form-control mb-3"]
+                    ])
+                    ->add('description', TextareaType::class,[
+                        'attr' => ['class' => "form-control mb-3"]
+                    ] )
+                    // ->add('contract')
+                    // ->add('contractType')
+                    ->add("submit", SubmitType::class, [
+                        'attr' => ['class' => "btn bg-color-primary"]
+                    ]);
+        $form = $formBuilder->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $offer = $form->getData();
+            $offer->setUpdateAt(new DateTime());
+            // dd($offer);
+            $manager->flush();
+
+            return $this->redirectToRoute("offers.list");
+        }
+
+        return $this->render('offer/edit.offer.html.twig', [
+            "form" => $form->createView()
+        ]);
+    }
+
     /**
      * @Route("/offers/{id}", name="offers.show")
      */
