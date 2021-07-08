@@ -57,20 +57,24 @@ class OfferController extends AbstractController
         $formBuilder = $this->createFormBuilder($offer);
         $formBuilder
                     ->add('title', TextType::class, [
-                        'attr' => ['class' => "form-control mb-3"]
+                        "label" => 'Titre',
+                        'attr' => ["placeholder" => 'Titre', 'class' => "form-control mb-3"]
                     ])
                     ->add('company', TextType::class, [
-                        'attr' => ['class' => "form-control mb-3"]
+                        "label" => 'Société',
+                        'attr' => ["placeholder" => 'Société', 'class' => "form-control mb-3"]
                     ])
                     ->add('city', TextType::class, [
-                        'attr' => ['class' => "form-control mb-3"]
+                        "label" => 'Ville',
+                        'attr' => ["placeholder" => 'Ville', 'class' => "form-control mb-3"]
                     ])
                     ->add('description', TextareaType::class,[
-                        'attr' => ['class' => "form-control mb-3"]
+                        "label" => "Description de l'offre",
+                        'attr' => ["placeholder" => "Description de l'offre", 'class' => "form-control mb-3"]
                     ] )
                     ->add('contract', EntityType::class, [
                         "class" => Contract::class,
-                        'label' => 'Contract',
+                        'label' => 'Contrat',
                         'choice_label' => 'name',
                         'choice_attr' => [ 'attr' => [ 'class' => "d-flex"] ],
                         'multiple' => false,
@@ -79,13 +83,14 @@ class OfferController extends AbstractController
                     ] )
                     ->add('contractType', EntityType::class, [
                         "class" => ContractType::class,
-                        'label' => 'Contract Type',
+                        'label' => 'Type de contrat',
                         'choice_label' => 'name',
                         'multiple' => false,
                         'expanded' => true,
                         'attr' => ['class' => "d-flex justify-content-evenly align-items-center mb-3"]
                     ] )
                     ->add("submit", SubmitType::class, [
+                        "label" => 'Valider',
                         'attr' => ['class' => "btn bg-color-primary"]
                     ]);
         $form = $formBuilder->getForm();
@@ -107,7 +112,7 @@ class OfferController extends AbstractController
 
             return $this->redirectToRoute("offers.list");
         }
-
+        
         return $this->render('offer/edit.offer.html.twig', [
             "form" => $form->createView()
         ]);

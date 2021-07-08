@@ -10,3 +10,7 @@ import './styles/app.scss';
 
 // start the Stimulus application
 import './bootstrap';
+
+import logoPath from '../assets/images/Indeep-logo.png';
+
+let html = `<img src="${logoPath}" alt="logo"`;
