@@ -78,16 +78,16 @@ class OfferController extends AbstractController
                         'choice_label' => 'name',
                         'choice_attr' => [ 'attr' => [ 'class' => "d-flex"] ],
                         'multiple' => false,
-                        'expanded' => true,
-                        'attr' => ['class' => "d-flex justify-content-evenly align-items-center mb-3"]
+                        'expanded' => false,
+                        'attr' => ['class' => "d-flex flex-wrap align-items-center form-select mb-3"]
                     ] )
                     ->add('contractType', EntityType::class, [
                         "class" => ContractType::class,
                         'label' => 'Type de contrat',
                         'choice_label' => 'name',
                         'multiple' => false,
-                        'expanded' => true,
-                        'attr' => ['class' => "d-flex justify-content-evenly align-items-center mb-3"]
+                        'expanded' => false,
+                        'attr' => ['class' => "d-flex justify-content-evenly align-items-center form-select mb-3"]
                     ] )
                     ->add("submit", SubmitType::class, [
                         "label" => 'Valider',
