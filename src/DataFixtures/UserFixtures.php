@@ -4,12 +4,19 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Faker\Factory;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
+
+
+    public function getDependencies()
+    {
+        return [RoleFixtures::class];
+    }
     private $passwordHasher;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
@@ -28,7 +35,10 @@ class UserFixtures extends Fixture
                 ->setFirstName($faker->firstName)
                 ->setLastName($faker->lastName)
                 ->setEmail($faker->email)
-                ->setPassword("123456789");
+                ->setPassword($this->passwordHasher->hashPassword($user, 'the_new_password'));
+
+            $role = $this->getReference("role_" . rand(0, 2));
+            $user->setRole($role);
 
             $manager->persist($user);
         }

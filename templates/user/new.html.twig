@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+    {% include "components/_navbar.html.twig" %}
+<div class="container">
+    <div class="row my-5 pt-5">
+        <div class="col-md-12 text-center">
+            <h1>Créer un nouvel utilisateur</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <a href="{{ path('user_index') }}" class="btn btn-secondary rounded-pill mb-3">Retour</a>
+            {{ include('user/_form.html.twig') }}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
