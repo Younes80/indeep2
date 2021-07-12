@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}page admin{% endblock %}
+
+{% block body %}
+    {% include "components/_navbar.html.twig" %}
+
+<div class="container">
+    <div class="row mt-5 pt-5">
+        <div class="col-md-12 text-center mb-5">
+            <h2>Page Admin</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card m-2 shadow border-0">
+                <div class="card-body">
+                    <h3>Liste des contrats</h3>
+                    <ul>
+                        {% for contract in contractList %}
+                        <hr>
+                            <li>
+                                <div class="d-flex flex-row justify-content-between">
+                                <p>{{ contract.name }}</p>
+                                    <div class="d-flex">
+                                        <a href="{{ path("admin.contracts.edit", {id: contract.id}) }}" class="btn btn-warning rounded-pill text-light me-1">&#128221;</a>
+                                        <a href="{{ path("admin.contracts.delete", {id: contract.id}) }}" class="btn btn-danger rounded-pill text-light">🗙</a>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-6">
+            <div class="card m-2 shadow border-0">
+                <div class="card-body">
+                    <h3>Liste des types de contrat</h3>
+                    <ul>
+                        {% for contractType in contractTypeList %}
+                            <hr>
+                            <li>
+                                <div class="d-flex flex-row justify-content-between">
+                                <p>{{ contractType.name }}</p>
+                                    <div class="d-flex">
+                                        <a href="{{ path("admin.contractsType.edit", {id: contractType.id}) }}" class="btn btn-warning rounded-pill text-light me-1">&#128221;</a>
+                                        <a href="{{ path("admin.contractsType.delete", {id: contractType.id}) }}" class="btn btn-danger rounded-pill text-light">🗙</a>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-body">
+                    <h3>Liste des offres</h3>
+                    <ul>
+                    {% for offer in offerList %}
+                        <hr>  
+                        <div class="row">
+                            <a href="{{ path("offers.show",{id: offer.id} )}}">
+                                <h3 class="card-title h5">{{ offer.title }}</h3>
+                                <span class="card-subtitle mb-2 text-muted h6">{{ offer.company }} / </span>
+                                <span class="card-subtitle mb-2 fst-italic text-muted h6">{{ offer.city }}</span>
+                            </a>
+                        </div>
+                        <div class="d-flex justify-content-between" >
+                            <span class="fs-6 fw-light">{{ offer.createdAt | date ("d/m/Y") }}</span>
+                            {% if offer.contract %}
+                                <p class=" fs-6 fw-light">{{ offer.contract.name }} / {{ offer.contractType.name }}</p>
+                            {% endif %}
+                            <div>
+                                <a href="{{ path("admin.offers.edit", {id: offer.id}) }}" class="btn btn-warning rounded-pill text-light">&#128221;</a>
+                                <a href="{{ path("admin.offers.delete", {id: offer.id}) }}" class="btn btn-danger rounded-pill text-light">🗙</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

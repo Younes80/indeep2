@@ -5,9 +5,20 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav ms-auto">
+      <div class="navbar-nav mx-auto">
         <a class="nav-link active" aria-current="page" href="/">Home</a>
-        <a class="nav-link" href="{{path("offers.create")}}">New offer</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="{{path("admin")}}">Accueil</a></li>
+            <li><a class="dropdown-item" href="{{path("admin.offers.create")}}">Nouvelle offre</a></li>
+            <li><a class="dropdown-item" href="{{path("admin.contracts.create")}}">Nouveau contrat</a></li>
+            <li><a class="dropdown-item" href="{{path("admin.contractsType.create")}}">Nouveau type de contrat</a></li>
+            
+          </ul>
+        </li>
       </div>
     </div>
   </div>
