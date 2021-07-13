@@ -15,7 +15,10 @@
         <div class="col-md-6">
             <div class="card m-2 shadow border-0">
                 <div class="card-body">
-                    <h3>Liste des contrats</h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>Liste des contrats</h3>
+                        <a class="btn btn-primary rounded-pill px-3 py-1 fs-3" href="{{path("admin.contracts.create")}}">+</a>
+                    </div>
                     <ul>
                         {% for contract in contractList %}
                         <hr>
@@ -38,7 +41,10 @@
         <div class="col-md-6">
             <div class="card m-2 shadow border-0">
                 <div class="card-body">
-                    <h3>Liste des types de contrat</h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>Liste des types de contrat</h3>
+                        <a class="btn btn-primary rounded-pill px-3 py-1 fs-3" href="{{path("admin.contractsType.create")}}">+</a>
+                    </div>
                     <ul>
                         {% for contractType in contractTypeList %}
                             <hr>
@@ -64,7 +70,10 @@
         <div class="col-md-8">
             <div class="card shadow border-0">
                 <div class="card-body">
-                    <h3>Liste des offres</h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>Liste des offres</h3>
+                        <a class="btn btn-primary rounded-pill px-3 py-1 fs-3" href="{{path("admin.offers.create")}}">+</a>
+                    </div>
                     <ul>
                     {% for offer in offerList %}
                         <hr>  
