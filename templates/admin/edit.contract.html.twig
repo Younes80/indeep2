@@ -1,21 +1,22 @@
 {% extends "base.html.twig" %}
-{% block title %}Nouveau/modifier un contract{% endblock %}
+{% block title %}Nouveau/modifier un contract
+{% endblock %}
 
 
 {% block body %}
-{% include "components/_navbar.html.twig" %}
-<div class="container">
-    <div class="row my-5 pt-5">
-        <div class="col-md-12 text-center">
-            <h1>{{ editMode ? "Modifier" : "Créer" }} un contract</h1>
+	{% include "components/_navbar.html.twig" %}
+	<div class="container">
+		<div class="row my-5 pt-5">
+			<div class="col-md-12 text-center">
+				<h1>{{ editMode ? "Modifier" : "Créer" }}
+					un contract</h1>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				{{ form(form) }}
+            </div>
         </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            {{ form(form) }}
 
-        </div>
-    </div>
-</div>
-
-{% endblock %}
+	{% endblock %}

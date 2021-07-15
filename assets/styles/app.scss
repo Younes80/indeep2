@@ -64,3 +64,14 @@ h2 {
 #form_contract.form-select {
 	color: #212529;
 }
+
+.accordion-button:focus {
+	z-index: 3;
+	border-color: none;
+	box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+	color: $color-3 !important;
+	box-shadow: none !important;
+}

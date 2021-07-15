@@ -8,11 +8,11 @@ use Doctrine\Persistence\ObjectManager;
 
 class RoleFixtures extends Fixture
 {
-    const ROLES_TYPE = [ "Super Admin", "Admin", "user" ];
-    
+    const ROLES_TYPE = ["Super Admin", "Admin", "user"];
+
     public function load(ObjectManager $manager)
     {
-        foreach(self::ROLES_TYPE as $key => $value){
+        foreach (self::ROLES_TYPE as $key => $value) {
             $role = new Role();
             $role->setName($value);
 

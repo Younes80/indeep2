@@ -38,7 +38,7 @@ class AdminController extends AbstractController
     /**
      * @route("/admin/offers/delete/{id}", name="admin.offers.delete")
      */
-    public function deleteOffer(Offer $offer) 
+    public function deleteOffer(Offer $offer)
     {
         // dd($offer);
         $manager = $this->getDoctrine()->getManager();
@@ -51,7 +51,7 @@ class AdminController extends AbstractController
     /**
      * @route("/admin/contracts/delete/{id}", name="admin.contracts.delete")
      */
-    public function deleteContract(Contract $contract) 
+    public function deleteContract(Contract $contract)
     {
         // dd($offer);
         // dd($contract);
@@ -65,7 +65,7 @@ class AdminController extends AbstractController
     /**
      * @route("/admin/contractsType/delete/{id}", name="admin.contractsType.delete")
      */
-    public function deleteContractType(ContractType $contractType) 
+    public function deleteContractType(ContractType $contractType)
     {
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($contractType);
@@ -89,34 +89,32 @@ class AdminController extends AbstractController
         }
         $formBuilder = $this->createFormBuilder($contract);
         $formBuilder
-                    ->add('name', TextType::class, [
-                        "label" => 'Nom',
-                        'attr' => ["placeholder" => 'Nom', 'class' => "mb-3"]
-                    ])
-                    ->add("submit", SubmitType::class, [
-                        "label" => 'Valider',
-                        'attr' => ['class' => "btn bg-color-primary"]
-                    ]);
+            ->add('name', TextType::class, [
+                "label" => 'Nom',
+                'attr' => ["placeholder" => 'Nom', 'class' => "mb-3"]
+            ])
+            ->add("submit", SubmitType::class, [
+                "label" => 'Valider',
+                'attr' => ['class' => "btn bg-color-primary"]
+            ]);
         $form = $formBuilder->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager = $this->getDoctrine()->getManager();
             $contract = $form->getData();
-            if(empty($contract->getId())){
+            if (empty($contract->getId())) {
                 $manager->persist($contract);
             }
             $manager->flush();
 
             return $this->redirectToRoute("admin");
         }
-        
+
         return $this->render('admin/edit.contract.html.twig', [
             "form" => $form->createView(),
             "editMode" => $editMode
         ]);
-    
-    
     }
 
 
@@ -136,34 +134,32 @@ class AdminController extends AbstractController
 
         $formBuilder = $this->createFormBuilder($contractType);
         $formBuilder
-                    ->add('name', TextType::class, [
-                        "label" => 'Nom',
-                        'attr' => ["placeholder" => 'Nom', 'class' => "mb-3"]
-                    ])
-                    ->add("submit", SubmitType::class, [
-                        "label" => 'Valider',
-                        'attr' => ['class' => "btn bg-color-primary"]
-                    ]);
+            ->add('name', TextType::class, [
+                "label" => 'Nom',
+                'attr' => ["placeholder" => 'Nom', 'class' => "mb-3"]
+            ])
+            ->add("submit", SubmitType::class, [
+                "label" => 'Valider',
+                'attr' => ['class' => "btn bg-color-primary"]
+            ]);
         $form = $formBuilder->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager = $this->getDoctrine()->getManager();
             $contractType = $form->getData();
-            if(empty($contractType->getId())){
+            if (empty($contractType->getId())) {
                 $manager->persist($contractType);
             }
             $manager->flush();
 
             return $this->redirectToRoute("admin");
         }
-        
+
         return $this->render('admin/edit.contractType.html.twig', [
             "form" => $form->createView(),
             "editMode" => $editMode
         ]);
-    
-    
     }
 
 
@@ -175,52 +171,52 @@ class AdminController extends AbstractController
      */
     public function formOffer(Request $request, Offer $offer = null)
     {
-        if(!$offer) {
+        if (!$offer) {
             $offer = new Offer();
             $editMode = false;
         } else {
             $editMode = true;
         }
-    
+
         $formBuilder = $this->createFormBuilder($offer);
         $formBuilder
-                    ->add('title', TextType::class, [
-                        "label" => 'Titre',
-                        'attr' => ["placeholder" => 'Titre', 'class' => "mb-3"]
-                    ])
-                    ->add('company', TextType::class, [
-                        "label" => 'Société',
-                        'attr' => ["placeholder" => 'Société', 'class' => "mb-3"]
-                    ])
-                    ->add('city', TextType::class, [
-                        "label" => 'Ville',
-                        'attr' => ["placeholder" => 'Ville', 'class' => "mb-3"]
-                    ])
-                    ->add('description', TextareaType::class,[
-                        "label" => "Description de l'offre",
-                        'attr' => ["placeholder" => "Description de l'offre", 'class' => "mb-3"]
-                    ] )
-                    ->add('contract', EntityType::class, [
-                        "class" => Contract::class,
-                        'label' => 'Contrat',
-                        'choice_label' => 'name',
-                        'choice_attr' => [ 'attr' => [ 'class' => "d-flex"] ],
-                        'multiple' => false,
-                        'expanded' => false,
-                        'attr' => ['class' => "d-flex flex-wrap align-items-center mb-3"]
-                    ] )
-                    ->add('contractType', EntityType::class, [
-                        "class" => ContractType::class,
-                        'label' => 'Type de contrat',
-                        'choice_label' => 'name',
-                        'multiple' => false,
-                        'expanded' => false,
-                        'attr' => ['class' => "d-flex justify-content-evenly align-items-center mb-3"]
-                    ] )
-                    ->add("submit", SubmitType::class, [
-                        "label" => 'Valider',
-                        'attr' => ['class' => "btn bg-color-primary"]
-                    ]);
+            ->add('title', TextType::class, [
+                "label" => 'Titre',
+                'attr' => ["placeholder" => 'Titre', 'class' => "mb-3"]
+            ])
+            ->add('company', TextType::class, [
+                "label" => 'Société',
+                'attr' => ["placeholder" => 'Société', 'class' => "mb-3"]
+            ])
+            ->add('city', TextType::class, [
+                "label" => 'Ville',
+                'attr' => ["placeholder" => 'Ville', 'class' => "mb-3"]
+            ])
+            ->add('description', TextareaType::class, [
+                "label" => "Description de l'offre",
+                'attr' => ["placeholder" => "Description de l'offre", 'class' => "mb-3"]
+            ])
+            ->add('contract', EntityType::class, [
+                "class" => Contract::class,
+                'label' => 'Contrat',
+                'choice_label' => 'name',
+                'choice_attr' => ['attr' => ['class' => "d-flex"]],
+                'multiple' => false,
+                'expanded' => false,
+                'attr' => ['class' => "d-flex flex-wrap align-items-center mb-3"]
+            ])
+            ->add('contractType', EntityType::class, [
+                "class" => ContractType::class,
+                'label' => 'Type de contrat',
+                'choice_label' => 'name',
+                'multiple' => false,
+                'expanded' => false,
+                'attr' => ['class' => "d-flex justify-content-evenly align-items-center mb-3"]
+            ])
+            ->add("submit", SubmitType::class, [
+                "label" => 'Valider',
+                'attr' => ['class' => "btn bg-color-primary"]
+            ]);
         $form = $formBuilder->getForm();
         $form->handleRequest($request);
 
@@ -228,10 +224,10 @@ class AdminController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
             $offer = $form->getData();
 
-            if ($offer->getId()){
+            if ($offer->getId()) {
                 $offer->setUpdateAt(new \DateTime());
             }
-            if(empty($offer->getId())){
+            if (empty($offer->getId())) {
                 $offer->setCreatedAt(new \DateTime());
                 $manager->persist($offer);
             }
@@ -240,14 +236,10 @@ class AdminController extends AbstractController
 
             return $this->redirectToRoute("admin");
         }
-        
+
         return $this->render('admin/edit.offer.html.twig', [
             "form" => $form->createView(),
             "editMode" => $editMode
         ]);
     }
-
-
-    
-
 }

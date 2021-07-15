@@ -40,5 +40,4 @@ class OfferController extends AbstractController
             'offer' => $offer,
         ]);
     }
-
 }

@@ -8,11 +8,11 @@ use Doctrine\Persistence\ObjectManager;
 
 class ContractTypeFixtures extends Fixture
 {
-    const CONTRATS_TYPE = [ "Temps plein", "Temps partiel" ];
-    
+    const CONTRATS_TYPE = ["Temps plein", "Temps partiel"];
+
     public function load(ObjectManager $manager)
     {
-        foreach(self::CONTRATS_TYPE as $key => $value){
+        foreach (self::CONTRATS_TYPE as $key => $value) {
             $contractType = new ContractType();
             $contractType->setName($value);
 
