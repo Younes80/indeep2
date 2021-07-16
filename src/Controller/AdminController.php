@@ -5,14 +5,13 @@ namespace App\Controller;
 use App\Entity\Contract;
 use App\Entity\ContractType;
 use App\Entity\Offer;
+use App\Form\ContractFormType;
+use App\Form\ContractTypeFormType;
+use App\Form\OfferFormType;
 use App\Repository\ContractRepository;
 use App\Repository\ContractTypeRepository;
 use App\Repository\OfferRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -87,17 +86,9 @@ class AdminController extends AbstractController
         } else {
             $editMode = true;
         }
-        $formBuilder = $this->createFormBuilder($contract);
-        $formBuilder
-            ->add('name', TextType::class, [
-                "label" => 'Nom',
-                'attr' => ["placeholder" => 'Nom', 'class' => "mb-3"]
-            ])
-            ->add("submit", SubmitType::class, [
-                "label" => 'Valider',
-                'attr' => ['class' => "btn bg-color-primary"]
-            ]);
-        $form = $formBuilder->getForm();
+        $form = $this->createForm(ContractFormType::class, $contract);
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -132,17 +123,8 @@ class AdminController extends AbstractController
             $editMode = true;
         }
 
-        $formBuilder = $this->createFormBuilder($contractType);
-        $formBuilder
-            ->add('name', TextType::class, [
-                "label" => 'Nom',
-                'attr' => ["placeholder" => 'Nom', 'class' => "mb-3"]
-            ])
-            ->add("submit", SubmitType::class, [
-                "label" => 'Valider',
-                'attr' => ['class' => "btn bg-color-primary"]
-            ]);
-        $form = $formBuilder->getForm();
+        $form = $this->createForm(ContractTypeFormType::class, $contractType);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -178,46 +160,7 @@ class AdminController extends AbstractController
             $editMode = true;
         }
 
-        $formBuilder = $this->createFormBuilder($offer);
-        $formBuilder
-            ->add('title', TextType::class, [
-                "label" => 'Titre',
-                'attr' => ["placeholder" => 'Titre', 'class' => "mb-3"]
-            ])
-            ->add('company', TextType::class, [
-                "label" => 'Société',
-                'attr' => ["placeholder" => 'Société', 'class' => "mb-3"]
-            ])
-            ->add('city', TextType::class, [
-                "label" => 'Ville',
-                'attr' => ["placeholder" => 'Ville', 'class' => "mb-3"]
-            ])
-            ->add('description', TextareaType::class, [
-                "label" => "Description de l'offre",
-                'attr' => ["placeholder" => "Description de l'offre", 'class' => "mb-3"]
-            ])
-            ->add('contract', EntityType::class, [
-                "class" => Contract::class,
-                'label' => 'Contrat',
-                'choice_label' => 'name',
-                'choice_attr' => ['attr' => ['class' => "d-flex"]],
-                'multiple' => false,
-                'expanded' => false,
-                'attr' => ['class' => "d-flex flex-wrap align-items-center mb-3"]
-            ])
-            ->add('contractType', EntityType::class, [
-                "class" => ContractType::class,
-                'label' => 'Type de contrat',
-                'choice_label' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                'attr' => ['class' => "d-flex justify-content-evenly align-items-center mb-3"]
-            ])
-            ->add("submit", SubmitType::class, [
-                "label" => 'Valider',
-                'attr' => ['class' => "btn bg-color-primary"]
-            ]);
-        $form = $formBuilder->getForm();
+        $form = $this->createForm(OfferFormType::class, $offer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
