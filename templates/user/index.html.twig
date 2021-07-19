@@ -27,13 +27,14 @@
                     <tbody>
                     {% for user in users %}
                         <tr>
-                            <td>{{ user.firstName }}</td>
-                            <td>{{ user.lastName }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.role }}</td>
-                            <td>
-                                <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                                <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                            <td class="align-middle">{{ user.firstName }}</td>
+                            <td class="align-middle">{{ user.lastName }}</td>
+                            <td class="align-middle">{{ user.email }}</td>
+                            <td class="align-middle">{{  user.roles ? user.roles|json_encode : '' }}</td>
+                            <td class="d-flex align-items-center">
+                                <a href="{{ path('user_show', {'id': user.id}) }}" class="text-dark text-decoration-none fs-4">&#128065;</a>
+                                <a href="{{ path('user_edit', {'id': user.id}) }}" class=" text-light mx-1">&#128221;</a>
+                                {{ include('user/_delete_form.html.twig') }}
                             </td>
                         </tr>
                     {% else %}
